@@ -366,7 +366,7 @@ export default function Home() {
   };
 
   return (
-    <main className="relative flex flex-1 flex-col items-center justify-center px-5 py-12 sm:px-4">
+    <main className="relative flex flex-1 flex-col items-center justify-center px-6 py-12 sm:px-4">
       <video
         ref={videoRef}
         src="/bg.mp4"
@@ -381,7 +381,7 @@ export default function Home() {
       <div
         className={`flex flex-col ${
           submitted
-            ? "items-center sm:items-start sm:[transform:translate(-15vw,250px)]"
+            ? "items-center lg:items-start lg:-translate-x-[15vw] lg:translate-y-[250px]"
             : "items-center"
         }`}
         style={{
@@ -391,8 +391,8 @@ export default function Home() {
         <h1
           className={`font-display font-extrabold uppercase tracking-normal leading-[1.03] text-white ${
             submitted
-              ? "text-[40px] sm:text-[66px] text-center sm:text-left"
-              : "text-[40px] sm:text-[90px] text-center"
+              ? "text-[48px] sm:text-[66px] text-center sm:text-left"
+              : "text-[48px] sm:text-[90px] text-center"
           }`}
           style={{
             transition: "font-size 700ms cubic-bezier(0.22, 1, 0.36, 1)",
@@ -402,13 +402,12 @@ export default function Home() {
           <span className="block">Tracker</span>
         </h1>
         <p
-          className={`mt-4 max-w-md text-neutral-400 ${
+          className={`mt-4 max-w-md text-[16px] sm:text-[18px] text-neutral-400 ${
             submitted ? "text-center sm:text-left" : "text-center"
           }`}
           style={{
             fontFamily: "var(--font-sans)",
-            fontSize: "18px",
-            lineHeight: "28px",
+            lineHeight: "26px",
             letterSpacing: "-0.02em",
           }}
         >
@@ -417,12 +416,10 @@ export default function Home() {
       </div>
 
       <div
-        className={`relative mt-20 rounded-[32px] p-px ${
-          submitted ? "sm:[transform:translate(15vw,-170px)]" : ""
+        className={`relative mt-12 w-full max-w-[420px] rounded-[24px] p-px lg:w-fit lg:min-w-[336px] lg:max-w-none ${
+          submitted ? "lg:translate-x-[15vw] lg:-translate-y-[170px]" : ""
         }`}
         style={{
-          width: "fit-content",
-          minWidth: 336,
           background:
             "radial-gradient(circle at 26% 13%, #36363A 0%, #36363A 26%, #18181B 50%, #222225 100%)",
           boxShadow:
@@ -431,7 +428,7 @@ export default function Home() {
         }}
       >
         <div
-          className="w-full rounded-[31px] pt-6 pb-2"
+          className="w-full rounded-[23px] pt-5 pb-3 px-px"
           style={{
             background:
               "linear-gradient(180deg, #222225 0%, #18181B 100%)",
@@ -475,7 +472,7 @@ export default function Home() {
           <div>
 
           <div
-            className="mx-2 mt-4 rounded-[20px]"
+            className="mx-2 mt-5 rounded-[20px]"
             style={{
               height: 128,
               border: "1px solid transparent",
