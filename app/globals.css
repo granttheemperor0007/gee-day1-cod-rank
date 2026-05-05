@@ -118,6 +118,18 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls,
+video::-webkit-media-controls-overlay-play-button,
+video::-webkit-media-controls-panel,
+video::-webkit-media-text-track-container {
+  display: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 @keyframes glitter-sweep {
   0% {
     background-position: 200% 50%;

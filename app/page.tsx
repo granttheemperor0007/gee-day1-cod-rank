@@ -321,6 +321,10 @@ export default function Home() {
     v.setAttribute("webkit-playsinline", "");
     v.setAttribute("muted", "");
     v.setAttribute("loop", "");
+    v.setAttribute("autoplay", "");
+    v.setAttribute("x-webkit-airplay", "deny");
+    v.setAttribute("disableRemotePlayback", "");
+    v.setAttribute("disablePictureInPicture", "");
 
     const tryPlay = () => {
       const p = v.play();
@@ -382,6 +386,9 @@ export default function Home() {
         playsInline
         autoPlay
         loop
+        controls={false}
+        disablePictureInPicture
+        disableRemotePlayback
         preload="auto"
         className="pointer-events-none fixed inset-0 -z-10 h-full w-full object-cover"
       />
