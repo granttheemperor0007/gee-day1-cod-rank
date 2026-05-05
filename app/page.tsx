@@ -316,9 +316,11 @@ export default function Home() {
     v.muted = true;
     v.defaultMuted = true;
     v.playsInline = true;
+    v.loop = true;
     v.setAttribute("playsinline", "");
     v.setAttribute("webkit-playsinline", "");
     v.setAttribute("muted", "");
+    v.setAttribute("loop", "");
 
     const tryPlay = () => {
       const p = v.play();
@@ -341,8 +343,13 @@ export default function Home() {
     const onVisibility = () => {
       if (!document.hidden && v.paused) tryPlay();
     };
+    const onEnded = () => {
+      v.currentTime = 0;
+      tryPlay();
+    };
     v.addEventListener("loadeddata", tryPlay);
     v.addEventListener("canplay", tryPlay);
+    v.addEventListener("ended", onEnded);
     v.addEventListener("pause", () => {
       if (!v.ended) tryPlay();
     });
@@ -351,6 +358,7 @@ export default function Home() {
     return () => {
       v.removeEventListener("loadeddata", tryPlay);
       v.removeEventListener("canplay", tryPlay);
+      v.removeEventListener("ended", onEnded);
       document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
