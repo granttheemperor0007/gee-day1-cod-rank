@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Big_Shoulders_Display } from "next/font/google";
+import { Geist, Geist_Mono, Bevan, Big_Shoulders } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,10 +12,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const bigShoulders = Big_Shoulders_Display({
+const bevan = Bevan({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["700", "800", "900"],
+  weight: ["400"],
+});
+
+const bigShoulders = Big_Shoulders({
+  variable: "--font-big-shoulders",
+  subsets: ["latin"],
+  weight: ["800"],
 });
 
 export const metadata: Metadata = {
@@ -31,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${geistSans.variable} ${geistMono.variable} ${bigShoulders.variable} h-full antialiased`}
+      className={`dark ${geistSans.variable} ${geistMono.variable} ${bevan.variable} ${bigShoulders.variable} h-full antialiased`}
     >
       <body className="min-h-screen flex flex-col">{children}</body>
     </html>
