@@ -463,10 +463,9 @@ export default function Home() {
               Holla, Champion
             </p>
             <p
-              className="text-center font-display text-white"
+              className="text-center font-display text-white text-[28px] sm:text-[40px]"
               style={{
                 fontWeight: 600,
-                fontSize: "40px",
                 letterSpacing: "-0.03em",
                 lineHeight: 1,
                 whiteSpace: "nowrap",
