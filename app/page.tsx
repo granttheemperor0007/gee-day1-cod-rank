@@ -313,32 +313,45 @@ export default function Home() {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    const START = 6;
-    const END = 32;
-    const RATE = 1;
-    v.playbackRate = RATE;
-    const seekStart = () => {
-      v.currentTime = START;
-      v.playbackRate = RATE;
-      v.play().catch(() => {});
-    };
-    const onTimeUpdate = () => {
-      if (v.currentTime >= END || v.currentTime < START - 0.1) {
-        v.currentTime = START;
+    v.muted = true;
+    v.defaultMuted = true;
+    v.playsInline = true;
+    v.setAttribute("playsinline", "");
+    v.setAttribute("webkit-playsinline", "");
+    v.setAttribute("muted", "");
+
+    const tryPlay = () => {
+      const p = v.play();
+      if (p && typeof p.catch === "function") {
+        p.catch(() => {
+          const kick = () => {
+            v.play().catch(() => {});
+            document.removeEventListener("touchstart", kick);
+            document.removeEventListener("touchend", kick);
+            document.removeEventListener("click", kick);
+            document.removeEventListener("scroll", kick);
+          };
+          document.addEventListener("touchstart", kick, { once: true });
+          document.addEventListener("touchend", kick, { once: true });
+          document.addEventListener("click", kick, { once: true });
+          document.addEventListener("scroll", kick, { once: true });
+        });
       }
-      v.playbackRate = RATE;
     };
-    v.addEventListener("loadedmetadata", seekStart);
-    v.addEventListener("timeupdate", onTimeUpdate);
-    v.addEventListener("ended", seekStart);
+    const onVisibility = () => {
+      if (!document.hidden && v.paused) tryPlay();
+    };
+    v.addEventListener("loadeddata", tryPlay);
+    v.addEventListener("canplay", tryPlay);
     v.addEventListener("pause", () => {
-      if (!v.ended) v.play().catch(() => {});
+      if (!v.ended) tryPlay();
     });
-    if (v.readyState >= 1) seekStart();
+    document.addEventListener("visibilitychange", onVisibility);
+    tryPlay();
     return () => {
-      v.removeEventListener("loadedmetadata", seekStart);
-      v.removeEventListener("timeupdate", onTimeUpdate);
-      v.removeEventListener("ended", seekStart);
+      v.removeEventListener("loadeddata", tryPlay);
+      v.removeEventListener("canplay", tryPlay);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
 
@@ -353,7 +366,7 @@ export default function Home() {
   };
 
   return (
-    <main className="relative flex flex-1 flex-col items-center justify-center px-4 py-12">
+    <main className="relative flex flex-1 flex-col items-center justify-center px-5 py-12 sm:px-4">
       <video
         ref={videoRef}
         src="/bg.mp4"
@@ -366,18 +379,22 @@ export default function Home() {
       />
       <div className="pointer-events-none fixed inset-0 -z-10 bg-black/55" />
       <div
-        className={`flex flex-col ${submitted ? "items-start" : "items-center"}`}
+        className={`flex flex-col ${
+          submitted
+            ? "items-center sm:items-start sm:[transform:translate(-15vw,250px)]"
+            : "items-center"
+        }`}
         style={{
-          transform: submitted
-            ? "translate(-15vw, 250px)"
-            : "translate(0, 0)",
           transition: "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       >
         <h1
-          className={`font-display font-extrabold uppercase tracking-normal leading-[1.03] text-white ${submitted ? "text-left" : "text-center"}`}
+          className={`font-display font-extrabold uppercase tracking-normal leading-[1.03] text-white ${
+            submitted
+              ? "text-[40px] sm:text-[66px] text-center sm:text-left"
+              : "text-[40px] sm:text-[90px] text-center"
+          }`}
           style={{
-            fontSize: submitted ? "66px" : "90px",
             transition: "font-size 700ms cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         >
@@ -385,7 +402,9 @@ export default function Home() {
           <span className="block">Tracker</span>
         </h1>
         <p
-          className={`mt-4 max-w-md text-neutral-400 ${submitted ? "text-left" : "text-center"}`}
+          className={`mt-4 max-w-md text-neutral-400 ${
+            submitted ? "text-center sm:text-left" : "text-center"
+          }`}
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: "18px",
@@ -398,7 +417,9 @@ export default function Home() {
       </div>
 
       <div
-        className="relative mt-20 rounded-[32px] p-px"
+        className={`relative mt-20 rounded-[32px] p-px ${
+          submitted ? "sm:[transform:translate(15vw,-170px)]" : ""
+        }`}
         style={{
           width: "fit-content",
           minWidth: 336,
@@ -406,9 +427,6 @@ export default function Home() {
             "radial-gradient(circle at 26% 13%, #36363A 0%, #36363A 26%, #18181B 50%, #222225 100%)",
           boxShadow:
             "0 4px 4px rgba(0,0,0,0.25), 0 8px 8px rgba(0,0,0,0.25)",
-          transform: submitted
-            ? "translate(15vw, -170px)"
-            : "translate(0, 0)",
           transition: "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       >
