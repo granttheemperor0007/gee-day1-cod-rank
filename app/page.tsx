@@ -396,7 +396,7 @@ export default function Home() {
       <div
         className={`flex flex-col ${
           submitted
-            ? "items-center lg:items-start lg:-translate-x-[15vw] lg:translate-y-[250px]"
+            ? "items-center landscape:items-start landscape:-translate-x-[15vw] landscape:translate-y-[250px]"
             : "items-center"
         }`}
         style={{
@@ -406,7 +406,7 @@ export default function Home() {
         <h1
           className={`font-display font-extrabold uppercase tracking-normal leading-[1.03] text-white ${
             submitted
-              ? "text-[48px] sm:text-[66px] text-center sm:text-left"
+              ? "text-[48px] sm:text-[66px] text-center landscape:text-left"
               : "text-[48px] sm:text-[90px] text-center"
           }`}
           style={{
@@ -418,7 +418,7 @@ export default function Home() {
         </h1>
         <p
           className={`mt-4 max-w-md text-[16px] sm:text-[18px] text-neutral-400 ${
-            submitted ? "text-center sm:text-left" : "text-center"
+            submitted ? "text-center landscape:text-left" : "text-center"
           }`}
           style={{
             fontFamily: "var(--font-sans)",
@@ -431,8 +431,8 @@ export default function Home() {
       </div>
 
       <div
-        className={`relative mt-12 w-full max-w-[420px] rounded-[24px] p-px lg:w-fit lg:min-w-[336px] lg:max-w-none ${
-          submitted ? "lg:translate-x-[15vw] lg:-translate-y-[170px]" : ""
+        className={`relative mt-12 w-full max-w-[420px] rounded-[24px] p-px landscape:w-fit landscape:min-w-[336px] landscape:max-w-none ${
+          submitted ? "landscape:translate-x-[15vw] landscape:-translate-y-[170px]" : ""
         }`}
         style={{
           background:
