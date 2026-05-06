@@ -26,7 +26,29 @@ const bigShoulders = Big_Shoulders({
 
 export const metadata: Metadata = {
   title: "K/D Tracker",
-  description: "K/D Tracker",
+  description:
+    "Look up your Call of Duty rank against a global leaderboard.",
+  openGraph: {
+    title: "K/D Tracker",
+    description:
+      "Look up your Call of Duty rank against a global leaderboard.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 725,
+        alt: "K/D Tracker",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "K/D Tracker",
+    description:
+      "Look up your Call of Duty rank against a global leaderboard.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
